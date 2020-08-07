@@ -20,19 +20,19 @@ class LinebotController < ApplicationController
 
     events = client.parse_events_from(body)
 
-    events.each { |event|
+    events.each do |event|
       case event
-      when Line::Bot::Event::MessageType::Text
-        message = {
-          type: 'text',
-          text: event.message['text'] #送られた内容をそのまま返す
-        }
+      when Line::Bot::Event::Message
+        case event.type
+        when Line::Bot::Event::MessageType::Text
+          message = {
+            type: 'text',
+            text: event.message['text']
+          }
         end
       end
-      # 応答メッセージを送る
       client.reply_message(event['replyToken'], message)
-      end
-    }
+    end
     head :ok
   end
 
