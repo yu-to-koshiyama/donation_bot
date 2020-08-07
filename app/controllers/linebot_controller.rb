@@ -22,18 +22,17 @@ class LinebotController < ApplicationController
 
     events.each { |event|
       case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          # LINEから送られてきたメッセージが「アンケート」と一致するかチェック
-          if event.message['text'].eql?('アンケート')
-            # private内のtemplateメソッドを呼び出します。
-            client.reply_message(event['replyToken'], template)
-          end
+      when Line::Bot::Event::MessageType::Text
+        message = {
+          type: 'text',
+          text: event.message['text'] #送られた内容をそのまま返す
+        }
         end
       end
+      # 応答メッセージを送る
+      client.reply_message(event['replyToken'], message)
+      end
     }
-
     head :ok
   end
 
