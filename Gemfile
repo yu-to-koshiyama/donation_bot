@@ -55,6 +55,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'line-bot-api'
 gem 'dotenv-rails'
+gem 'google_drive'
+gem "gmaps4rails"
+gem "geocoder"
+gem "gon"
+gem 'pry-rails'
 
 group :production do
   gem 'rails_12factor'
