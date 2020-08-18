@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  margin: 0px;
+}
+#map {
+  height: 600px;
+  width: 1000px;
+  margin: 20px 20px;
+}
+input {
+  margin-top: 20px;
+  height: 30px;
+}
+.Header {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  background-color: darkgreen;
+  color: #ffffff;
+}
+.title {
+  line-height: 2em;
+  font-family: "Franklin Gothic Medium";
+  font-size: 24px;
+}
+
+.search-button {
+  margin: 0px 20px;
+  display: inline;
+}
+#display {
+  margin: 0px 20px;
+}
+
+#address {
+  width: 250px;
+}
+
+.Footer {
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  padding-top: 5px;
+  color: green;
+}

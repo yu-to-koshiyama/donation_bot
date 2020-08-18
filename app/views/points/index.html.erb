@@ -1,0 +1,74 @@
+<div class='Header'>
+  <div class="title">Google Map</div>
+</div>
+<div class="search-button">
+  <input id="address" type="textbox" value="東京駅">
+  <input type="button" value="ピンをたてる" onclick="codeAddress()">
+  <input type="button" value="1つ消す" onclick="one_deleteMarkers()">
+  <input type="button" value="全部消す" onclick="all_deleteMarkers()">
+</div>
+  <div id="display">ここにGeoCodeが表示されます</div>
+<div class="reset-button">
+</div>
+
+<div id='map'></div>
+<script>
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
+let map
+let markers = [];
+let geocoder
+const display = document.getElementById('display')
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6811673, lng: 139.7670516},
+    zoom: 13,
+    mapTypeId: "terrain"
+  });
+}
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+          map: map,
+          animation: google.maps.Animation.DROP,
+          label: labels[labelIndex++ % labels.length],
+          title: inputAddress,
+          position: results[0].geometry.location
+      });
+      markers.push(marker);
+      display.textContent = "検索結果：" + results[ 0 ].geometry.location
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });   
+}
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+function all_deleteMarkers() {
+  setMapOnAll(null);
+  markers = [];
+  labelIndex = 0;   
+}
+
+function one_deleteMarkers() {
+  markers[markers.length-1].setMap(null);
+  markers.pop();
+  labelIndex--;
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_KEY'] %>&callback=initMap" async defer></script>
+<div class='Footer'>
+  Google Maps for あいあう食堂
+</div>

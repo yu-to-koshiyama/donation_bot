@@ -1,0 +1,8 @@
+<%= form_with model: @point, url: points_path, method: :post,local: true do |f| %>
+<%= render 'shared/errors', model: f.object %>
+  <%= f.label :name, "名前" %>
+  <%= f.text_field :name %>
+  <%= f.label :name, "住所" %>
+  <%= f.text_field :address %>
+  <%= f.submit "登録" %>
+<% end %>
